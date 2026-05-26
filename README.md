@@ -57,49 +57,50 @@ created_at, updated_at
 ## Geocoding
 Using the Nominatim API (OpenStreetMap) — free, no API key required.
 
-Automatic geocoding when saving an address
-"Geolocate" button to force recalculation
-Proximity search via Haversine formula in SQL
+*Automatic geocoding when saving an address
+*"Geolocate" button to force recalculation
+*Proximity search via Haversine formula in SQL
 
 ## Modern admin design
-Clean palette: white, light gray, soft blue accents
-Maps with subtle shadows and rounded corners
-Clean typography, ample spacing
-Dynamic address form (add/delete via JS without reloading)
-Tabs to organize fields (Identity / Contact / Addresses / Notes)
-No dependency on a heavy JS framework — vanilla JS + custom CSS
+*Clean palette: white, light gray, soft blue accents
+*Maps with subtle shadows and rounded corners
+*Clean typography, ample spacing
+*Dynamic address form (add/delete via JS without reloading)
+*Tabs to organize fields (Identity / Contact / Addresses / Notes)
+*No dependency on a heavy JS framework — vanilla JS + custom CSS
 
 ## Implementation steps
 ### 1. Plugin Bootstrap
-Main file with WordPress headers
-Automatic class loading
-Activation/deactivation hooks
-Creation of the wp_td_addresses table upon activation
+*Main file with WordPress headers
+*Automatic class loading
+*Activation/deactivation hooks
+*Creation of the wp_td_addresses table upon activation
 ### 2. Custom post type and taxonomy
-Saving the therapeutic CPT (without a classic editor, supports: title, thumbnail)
-Hierarchical taxonomy therapist_category with user interface administrator
-Custom columns in the admin list
+*Saving the therapeutic CPT (without a classic editor, supports: title, thumbnail)
+*Hierarchical taxonomy therapist_category with user interface administrator
+*Custom columns in the admin list
 ### 3. Metabox and editing form
-"Identity" metabox: title, last name, first name, title
-"Contact" metabox: email, main phone, work phone 1/2, website, ADELI
-"Information" metabox: information, notes, photo
-"Addresses" metabox: dynamic form with address addition/deletion
-Server-side validation of required fields
-Tabbed interface in the editing screen
+*"Identity" metabox: title, last name, first name, title
+*"Contact" metabox: email, main phone, work phone 1/2, website, ADELI
+*"Information" metabox: information, notes, photo
+*"Addresses" metabox: dynamic form with address addition/deletion
+*Server-side validation of required fields
+*Tabbed interface in the editing screen
 ### 4. Address management
-CRUD via AJAX (add, modify, delete addresses)
-Automatic geocoding via Nominatim on save
-Display of calculated latitude/longitude coordinates, manually editable
+*CRUD via AJAX (add, modify, delete addresses)
+*Automatic geocoding via Nominatim on save
+*Display of calculated latitude/longitude coordinates, manually editable
 ### 5. Modern administrative styles
-Custom CSS for metaboxes
-Clean design cards, tabs, and forms
-Responsive in the admin area
+*Custom CSS for metaboxes
+*Clean design cards, tabs, and forms
+*Responsive in the admin area
 ### 6. Frontend (code (shortcodes)
 All shortcodes accept a category parameter (taxonomy slug) to filter by specialty. Each specialty can thus have its own page.
 
-[therapist_directorycategory="osteopath"]: List of therapists in the category, with filters (city, name). Without parameters, the category displays all therapists.
+*[therapist_directorycategory="osteopath"]: List of therapists in the category, with filters (city, name). Without parameters, the category displays all therapists.
 
-[therapist_searchcategory="osteopath"]: Search by proximity (postal code + radius) limited to the category.
+*[therapist_searchcategory="osteopath"]: Search by proximity (postal code + radius) limited to the category.
 
-[therapist_map Category="osteopath"]: Leaflet/OpenStreetMap map with category markers.
-Therapist detail pages
+*[therapist_map Category="osteopath"]: Leaflet/OpenStreetMap map with category markers.
+
+*Therapist detail pages
