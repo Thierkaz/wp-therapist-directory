@@ -30,6 +30,7 @@
 }
 
 .td-filters-row input,
+.td-filters-row select,
 .td-search-field input,
 .td-search-field select {
     padding: 10px 16px;
@@ -41,7 +42,18 @@
     transition: border-color 0.2s ease;
 }
 
+.td-filter-cp {
+    min-width: 120px !important;
+    max-width: 140px;
+}
+
+.td-filter-rayon {
+    min-width: 100px !important;
+    max-width: 120px;
+}
+
 .td-filters-row input:focus,
+.td-filters-row select:focus,
 .td-search-field input:focus,
 .td-search-field select:focus {
     outline: none;

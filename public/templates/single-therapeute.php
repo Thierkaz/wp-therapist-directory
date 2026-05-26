@@ -141,7 +141,7 @@ while ( have_posts() ) :
                     <section class="td-single-section">
                         <h2><?php esc_html_e( 'Localisation', 'therapist-directory' ); ?></h2>
                         <div id="td-single-map" class="td-single-map"
-                             data-markers='<?php echo wp_json_encode( $markers ); ?>'>
+                             data-markers="<?php echo esc_attr( wp_json_encode( $markers ) ); ?>">
                         </div>
                     </section>
                 <?php endif; ?>

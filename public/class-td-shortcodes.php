@@ -21,7 +21,16 @@ class TD_Shortcodes {
             'per_page' => 12,
         ], $atts, 'therapist_directory' );
 
-        $paged = max( 1, get_query_var( 'paged' ) );
+        // Pagination : préférer le paramètre GET ?paged=X (fiable sur les pages WP)
+        $paged = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 0;
+        if ( ! $paged ) {
+            $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
+        }
+        $paged = max( 1, intval( $paged ) );
+
+        // Filtres
+        $filter_ville = sanitize_text_field( $_GET['td_ville'] ?? '' );
+        $filter_nom   = sanitize_text_field( $_GET['td_nom'] ?? '' );
 
         $args = [
             'post_type'      => 'therapeute',
@@ -40,10 +49,7 @@ class TD_Shortcodes {
             ] ];
         }
 
-        // Filtre par ville si paramètre GET
-        $filter_ville = sanitize_text_field( $_GET['td_ville'] ?? '' );
-        $filter_nom   = sanitize_text_field( $_GET['td_nom'] ?? '' );
-
+        // Filtre par nom/prénom
         if ( $filter_nom ) {
             $args['meta_query'][] = [
                 'relation' => 'OR',
@@ -60,10 +66,7 @@ class TD_Shortcodes {
             ];
         }
 
-        $query = new WP_Query( $args );
-
-        // Si filtre par ville, filtrer côté PHP via la table des adresses
-        $ville_filtered_ids = null;
+        // Filtre par ville via la table des adresses
         if ( $filter_ville ) {
             global $wpdb;
             $table = $wpdb->prefix . 'td_addresses';
@@ -71,18 +74,16 @@ class TD_Shortcodes {
                 "SELECT DISTINCT therapeute_id FROM $table WHERE ville LIKE %s",
                 '%' . $wpdb->esc_like( $filter_ville ) . '%'
             ) );
-            if ( empty( $ville_filtered_ids ) ) {
-                $ville_filtered_ids = [ 0 ]; // Aucun résultat
-            }
-            $args['post__in'] = $ville_filtered_ids;
-            $query = new WP_Query( $args );
+            $args['post__in'] = ! empty( $ville_filtered_ids ) ? $ville_filtered_ids : [ 0 ];
         }
+
+        $query = new WP_Query( $args );
 
         ob_start();
         ?>
         <div class="td-directory">
-            <!-- Filtres -->
-            <form class="td-filters" method="get">
+            <!-- Filtres : action vers l'URL propre de la page (sans paramètres résiduels) -->
+            <form class="td-filters" method="get" action="<?php echo esc_url( get_permalink() ); ?>">
                 <div class="td-filters-row">
                     <input type="text" name="td_nom" placeholder="<?php esc_attr_e( 'Nom ou prénom…', 'therapist-directory' ); ?>"
                            value="<?php echo esc_attr( $filter_nom ); ?>">
@@ -109,10 +110,26 @@ class TD_Shortcodes {
                 <?php if ( $query->max_num_pages > 1 ) : ?>
                     <div class="td-pagination">
                         <?php
-                        echo paginate_links( [
+                        // Utiliser le format ?paged=X pour que ça fonctionne sur les pages WordPress
+                        $base_url = get_pagenum_link( 1, false );
+                        $pagination_args = [
+                            'base'    => add_query_arg( 'paged', '%#%', $base_url ),
+                            'format'  => '',
                             'total'   => $query->max_num_pages,
                             'current' => $paged,
-                        ] );
+                        ];
+                        // Conserver les paramètres de filtre dans les liens de pagination
+                        $query_params = [];
+                        if ( $filter_nom ) {
+                            $query_params['td_nom'] = $filter_nom;
+                        }
+                        if ( $filter_ville ) {
+                            $query_params['td_ville'] = $filter_ville;
+                        }
+                        if ( ! empty( $query_params ) ) {
+                            $pagination_args['add_args'] = $query_params;
+                        }
+                        echo paginate_links( $pagination_args );
                         ?>
                     </div>
                 <?php endif; ?>
@@ -228,7 +245,7 @@ class TD_Shortcodes {
         ?>
         <div id="<?php echo esc_attr( $map_id ); ?>" class="td-map-container"
              style="height: <?php echo intval( $atts['height'] ); ?>px;"
-             data-markers='<?php echo wp_json_encode( $markers ); ?>'>
+             data-markers="<?php echo esc_attr( wp_json_encode( $markers ) ); ?>">
         </div>
         <?php
         return ob_get_clean();
@@ -249,7 +266,7 @@ class TD_Shortcodes {
 
         // Collecter toutes les villes uniques
         $villes = array_unique( array_filter( array_map( function( $a ) {
-            return $a->ville;
+            return $a->ville . ' - ' . $a->code_postal;
         }, $addresses ) ) );
         ?>
         <div class="td-card">
