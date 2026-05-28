@@ -16,6 +16,10 @@ class TD_Activator {
         TD_Taxonomy::register();
         flush_rewrite_rules();
 
+        // Tables des statistiques
+        TD_Stats::create_table();
+        TD_Clicks::create_table();
+
         update_option( 'td_version', TD_VERSION );
     }
 

@@ -65,6 +65,9 @@ function td_init() {
     // Enregistrement CPT et taxonomie
     TD_Post_Type::register();
     TD_Taxonomy::register();
+
+    // Hooks AJAX pour le tracking des clics
+    TD_Clicks::init();
 }
 add_action( 'init', 'td_init' );
 
@@ -74,6 +77,15 @@ add_action( 'init', 'td_init' );
 function td_admin_init() {
     new TD_Meta_Boxes();
     new TD_Ajax();
+
+    // Création automatique des tables si absentes (mise à jour sans réactivation)
+    global $wpdb;
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}td_stats'" ) !== $wpdb->prefix . 'td_stats' ) {
+        TD_Stats::create_table();
+    }
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}td_clicks'" ) !== $wpdb->prefix . 'td_clicks' ) {
+        TD_Clicks::create_table();
+    }
 }
 add_action( 'admin_init', 'td_admin_init' );
 
@@ -183,6 +195,9 @@ add_action( 'wp_enqueue_scripts', 'td_public_enqueue' );
  */
 function td_template_include( $template ) {
     if ( is_singular( 'therapeute' ) ) {
+        // Enregistrer la vue
+        TD_Stats::record_view( get_queried_object_id() );
+
         $plugin_template = TD_PLUGIN_DIR . 'public/templates/single-therapeute.php';
         if ( file_exists( $plugin_template ) ) {
             return $plugin_template;

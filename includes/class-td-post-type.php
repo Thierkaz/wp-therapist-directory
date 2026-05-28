@@ -71,6 +71,8 @@ class TD_Post_Type {
         $new['td_ville']  = __( 'Ville(s)', 'therapist-directory' );
         $new['taxonomy-therapeute_category'] = __( 'Catégories', 'therapist-directory' );
         $new['td_order']  = __( 'Ordre', 'therapist-directory' );
+        $new['td_views']  = __( 'Vues', 'therapist-directory' );
+        $new['td_clicks'] = __( 'Clics', 'therapist-directory' );
         $new['date']      = $columns['date'];
 
         return $new;
@@ -98,6 +100,20 @@ class TD_Post_Type {
 
             case 'td_order':
                 echo esc_html( get_post_field( 'menu_order', $post_id ) );
+                break;
+
+            case 'td_views':
+                $views = TD_Stats::get_total_views( $post_id );
+                echo '<strong>' . esc_html( number_format_i18n( $views ) ) . '</strong>';
+                break;
+
+            case 'td_clicks':
+                $clicks = TD_Clicks::get_clicks_by_type( $post_id );
+                $parts  = [];
+                if ( $clicks['phone'] )   $parts[] = '☎ ' . number_format_i18n( $clicks['phone'] );
+                if ( $clicks['email'] )   $parts[] = '✉ ' . number_format_i18n( $clicks['email'] );
+                if ( $clicks['website'] ) $parts[] = '🌐 ' . number_format_i18n( $clicks['website'] );
+                echo $parts ? esc_html( implode( ' · ', $parts ) ) : '<span style="color:#ced4da;">0</span>';
                 break;
 
             case 'td_ville':

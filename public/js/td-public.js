@@ -181,11 +181,42 @@
     }
 
     /**
+     * Tracking des clics sur les liens de contact.
+     */
+    function initClickTracking() {
+        $(document).on('click', '[data-td-click]', function () {
+            var $link    = $(this);
+            var clickType = $link.data('td-click');
+            var postId    = $link.closest('[data-td-post-id]').data('td-post-id');
+
+            if (!postId || !clickType) {
+                return;
+            }
+
+            // Envoi asynchrone (fire-and-forget, ne bloque pas la navigation)
+            navigator.sendBeacon
+                ? navigator.sendBeacon(tdPublic.ajaxUrl, new URLSearchParams({
+                    action: 'td_record_click',
+                    nonce: tdPublic.nonce,
+                    post_id: postId,
+                    click_type: clickType
+                }))
+                : $.post(tdPublic.ajaxUrl, {
+                    action: 'td_record_click',
+                    nonce: tdPublic.nonce,
+                    post_id: postId,
+                    click_type: clickType
+                });
+        });
+    }
+
+    /**
      * Initialisation.
      */
     $(document).ready(function () {
         initMaps();
         initSearch();
+        initClickTracking();
     });
 
 })(jQuery);
