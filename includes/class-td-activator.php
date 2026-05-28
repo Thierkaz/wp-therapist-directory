@@ -31,6 +31,7 @@ class TD_Activator {
         $sql = "CREATE TABLE $table_name (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             therapeute_id BIGINT(20) UNSIGNED NOT NULL,
+            etablissement VARCHAR(255) DEFAULT '',
             adresse VARCHAR(255) DEFAULT '',
             code_postal VARCHAR(20) DEFAULT '',
             ville VARCHAR(100) DEFAULT '',

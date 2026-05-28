@@ -167,9 +167,59 @@
     }
 
     /**
+     * Gestion du tri par drag-and-drop.
+     */
+    function initOrdering() {
+        var $list = $('#td-ordering-list');
+        if ($list.length === 0) {
+            return;
+        }
+
+        $list.sortable({
+            handle: '.td-ordering-handle',
+            placeholder: 'td-ordering-item ui-sortable-placeholder',
+            cursor: 'grabbing',
+            opacity: 0.9,
+            tolerance: 'pointer',
+            update: function () {
+                // Mettre à jour les numéros de position
+                $list.find('.td-ordering-item').each(function (i) {
+                    $(this).find('.td-ordering-position').text(i + 1);
+                });
+
+                // Sauvegarder via AJAX
+                var order = $list.sortable('toArray', { attribute: 'data-post-id' });
+
+                $.post(tdAdmin.ajaxUrl, {
+                    action: 'td_save_ordering',
+                    nonce: tdAdmin.nonce,
+                    order: order
+                }, function (response) {
+                    var $status = $('#td-ordering-status');
+                    if (response.success) {
+                        $status.fadeIn(200);
+                        setTimeout(function () {
+                            $status.fadeOut(300);
+                        }, 2000);
+                    } else {
+                        alert(tdAdmin.i18n.orderError);
+                    }
+                });
+            }
+        });
+    }
+
+    /**
      * Initialisation.
      */
     $(document).ready(function () {
+        // Page d'ordonnancement
+        if (typeof tdAdmin !== 'undefined' && tdAdmin.isOrderingPage) {
+            initOrdering();
+            return;
+        }
+
+        // Pages d'édition du CPT therapeute
         if ($('.td-meta-box').length === 0) {
             return;
         }

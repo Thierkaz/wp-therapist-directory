@@ -70,6 +70,7 @@ class TD_Post_Type {
         $new['td_phone']  = __( 'Téléphone', 'therapist-directory' );
         $new['td_ville']  = __( 'Ville(s)', 'therapist-directory' );
         $new['taxonomy-therapeute_category'] = __( 'Catégories', 'therapist-directory' );
+        $new['td_order']  = __( 'Ordre', 'therapist-directory' );
         $new['date']      = $columns['date'];
 
         return $new;
@@ -93,6 +94,10 @@ class TD_Post_Type {
 
             case 'td_phone':
                 echo esc_html( get_post_meta( $post_id, '_td_telephone_principal', true ) );
+                break;
+
+            case 'td_order':
+                echo esc_html( get_post_field( 'menu_order', $post_id ) );
                 break;
 
             case 'td_ville':
@@ -140,6 +145,7 @@ class TD_Post_Type {
     public static function sortable_columns( $columns ) {
         $columns['td_titre'] = 'td_titre';
         $columns['td_email'] = 'td_email';
+        $columns['td_order'] = 'menu_order';
         return $columns;
     }
 }

@@ -37,7 +37,7 @@ class TD_Shortcodes {
             'post_status'    => 'publish',
             'posts_per_page' => intval( $atts['per_page'] ),
             'paged'          => $paged,
-            'orderby'        => 'title',
+            'orderby'        => 'menu_order title',
             'order'          => 'ASC',
         ];
 

@@ -78,15 +78,27 @@ function td_admin_init() {
 add_action( 'admin_init', 'td_admin_init' );
 
 /**
+ * Chargement de la page d'ordonnancement (doit être sur admin_menu).
+ */
+require_once TD_PLUGIN_DIR . 'includes/class-td-ordering.php';
+TD_Ordering::init();
+
+/**
  * Enqueue des assets admin.
  */
 function td_admin_enqueue( $hook ) {
     global $post_type;
-    if ( 'therapeute' !== $post_type ) {
+
+    $is_ordering_page = ( $hook === TD_Ordering::get_page_hook() );
+    $is_therapeute    = ( 'therapeute' === $post_type );
+
+    if ( ! $is_therapeute && ! $is_ordering_page ) {
         return;
     }
 
-    wp_enqueue_media();
+    if ( $is_therapeute ) {
+        wp_enqueue_media();
+    }
 
     wp_enqueue_style(
         'td-admin',
@@ -95,22 +107,30 @@ function td_admin_enqueue( $hook ) {
         TD_VERSION
     );
 
+    $js_deps = [ 'jquery' ];
+    if ( $is_ordering_page ) {
+        $js_deps[] = 'jquery-ui-sortable';
+    }
+
     wp_enqueue_script(
         'td-admin',
         TD_PLUGIN_URL . 'admin/js/td-admin.js',
-        [ 'jquery' ],
+        $js_deps,
         TD_VERSION,
         true
     );
 
     wp_localize_script( 'td-admin', 'tdAdmin', [
-        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-        'nonce'   => wp_create_nonce( 'td_admin_nonce' ),
-        'i18n'    => [
+        'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+        'nonce'          => wp_create_nonce( 'td_admin_nonce' ),
+        'isOrderingPage' => $is_ordering_page,
+        'i18n'           => [
             'confirmDelete'  => __( 'Supprimer cette adresse ?', 'therapist-directory' ),
             'geocodeError'   => __( 'Impossible de géolocaliser cette adresse.', 'therapist-directory' ),
             'geocodeSuccess' => __( 'Adresse géolocalisée avec succès.', 'therapist-directory' ),
             'requiredFields' => __( 'Veuillez remplir tous les champs obligatoires.', 'therapist-directory' ),
+            'orderSaved'     => __( 'Ordre sauvegardé !', 'therapist-directory' ),
+            'orderError'     => __( 'Erreur lors de la sauvegarde.', 'therapist-directory' ),
         ],
     ]);
 }
