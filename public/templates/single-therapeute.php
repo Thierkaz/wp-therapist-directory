@@ -102,7 +102,7 @@ while ( have_posts() ) :
                     <section class="td-single-section">
                         <h2><?php esc_html_e( 'Présentation', 'therapist-directory' ); ?></h2>
                         <div class="td-single-text">
-                            <?php echo wp_kses_post( $information ); ?>
+                            <?php echo wp_kses_post( wpautop( $information ) ); ?>
                         </div>
                     </section>
                 <?php endif; ?>
