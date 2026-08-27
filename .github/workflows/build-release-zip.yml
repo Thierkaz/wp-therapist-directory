@@ -48,4 +48,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.PLUGIN_SLUG }}
-          path: build/${{ env.PLUGIN_SLUG }}.zip
+          # Upload the unzipped plugin folder here, not the .zip built above:
+          # actions/upload-artifact always wraps the given path in its own zip,
+          # so pointing it at an already-zipped file produces a zip-of-a-zip
+          # that WordPress cannot install directly.
+          path: build/${{ env.PLUGIN_SLUG }}
