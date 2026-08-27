@@ -1,0 +1,51 @@
+name: Build plugin release zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+env:
+  PLUGIN_SLUG: therapist-directory
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine ref to build
+        id: ref
+        run: |
+          if [ -n "${{ github.event.release.tag_name }}" ]; then
+            echo "ref=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.ref.outputs.ref }}
+
+      - name: Build plugin package
+        run: |
+          set -e
+          BUILD_DIR="build/${PLUGIN_SLUG}"
+          mkdir -p "$BUILD_DIR"
+          rsync -a --exclude-from=.distignore ./ "$BUILD_DIR/"
+          (cd build && zip -r "${PLUGIN_SLUG}.zip" "${PLUGIN_SLUG}")
+
+      - name: Upload zip to the release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/${{ env.PLUGIN_SLUG }}.zip
+
+      - name: Upload build artifact
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_SLUG }}
+          path: build/${{ env.PLUGIN_SLUG }}.zip
