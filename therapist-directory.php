@@ -3,8 +3,8 @@
  * Plugin Name: Annuaire de Thérapeutes
  * Plugin URI:
  * Description: Gestion d'un annuaire de thérapeutes avec recherche géolocalisée.
- * Version: 1.0.1
- * Author: Thierry François - https://fknet.fr
+ * Version: 1.0.2
+ * Author: Thierry François - https://www.fknet.fr
  * Author URI:
  * Text Domain: therapist-directory
  * Domain Path: /languages
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'TD_VERSION', '1.0.1' );
+define( 'TD_VERSION', '1.0.2' );
 define( 'TD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'TD_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
