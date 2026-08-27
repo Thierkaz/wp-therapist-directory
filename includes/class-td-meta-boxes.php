@@ -255,11 +255,11 @@ class TD_Meta_Boxes {
                         wp_editor( $fields['information'], 'td_information', [
                             'textarea_name' => 'td_information',
                             'textarea_rows' => 8,
-                            'media_buttons' => false,
+                            'media_buttons' => true,
                             'teeny'         => true,
                             'quicktags'     => true,
                             'tinymce'       => [
-                                'toolbar1' => 'bold,italic,bullist,numlist,separator,undo,redo',
+                                'toolbar1' => 'bold,italic,bullist,numlist,link,unlink,separator,undo,redo',
                                 'toolbar2' => '',
                             ],
                         ] );
@@ -431,7 +431,7 @@ class TD_Meta_Boxes {
 
         // Champs textarea
         if ( isset( $_POST['td_information'] ) ) {
-            update_post_meta( $post_id, '_td_information', sanitize_textarea_field( $_POST['td_information'] ) );
+            update_post_meta( $post_id, '_td_information', wp_kses_post( $_POST['td_information'] ) );
         }
         if ( isset( $_POST['td_notes'] ) ) {
             update_post_meta( $post_id, '_td_notes', wp_kses_post( $_POST['td_notes'] ) );
