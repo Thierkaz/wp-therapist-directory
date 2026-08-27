@@ -1,0 +1,603 @@
+/* ==========================================================================
+   Annuaire de Thérapeutes — Frontend Styles
+   ========================================================================== */
+
+:root {
+    --td-primary: #4f6df5;
+    --td-primary-dark: #3a54c4;
+    --td-gray-100: #f1f3f5;
+    --td-gray-200: #e2e6ea;
+    --td-gray-300: #ced4da;
+    --td-gray-500: #868e96;
+    --td-gray-700: #495057;
+    --td-gray-900: #212529;
+    --td-radius: 10px;
+    --td-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --td-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Filtres --- */
+.td-filters {
+    margin-bottom: 24px;
+}
+
+.td-filters-row,
+.td-search-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.td-filters-row input,
+.td-filters-row select,
+.td-search-field input,
+.td-search-field select {
+    padding: 10px 16px;
+    border: 1px solid var(--td-gray-300);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--td-gray-900);
+    min-width: 180px;
+    transition: border-color 0.2s ease;
+}
+
+.td-filter-cp {
+    min-width: 120px !important;
+    max-width: 140px;
+}
+
+.td-filter-rayon {
+    min-width: 100px !important;
+    max-width: 120px;
+}
+
+.td-filters-row input:focus,
+.td-filters-row select:focus,
+.td-search-field input:focus,
+.td-search-field select:focus {
+    outline: none;
+    border-color: var(--td-primary);
+    box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+.td-search-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.td-search-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--td-gray-700);
+}
+
+/* --- Boutons --- */
+.td-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    background: var(--td-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-decoration: none;
+}
+
+.td-btn-primary:hover {
+    background: var(--td-primary-dark);
+    color: #fff;
+}
+
+.td-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: none;
+    color: var(--td-gray-500);
+    border: 1px solid var(--td-gray-300);
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.td-btn-secondary:hover {
+    border-color: var(--td-gray-500);
+    color: var(--td-gray-700);
+}
+
+/* --- Grille de cartes --- */
+.td-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* --- Carte thérapeute --- */
+.td-card {
+    background: #fff;
+    border-radius: var(--td-radius);
+    box-shadow: var(--td-shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.td-card:hover {
+    box-shadow: var(--td-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.td-card-photo {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--td-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.td-card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.td-card-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--td-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.td-card-body {
+    padding: 18px;
+}
+
+.td-card-name {
+    margin: 0 0 18px;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: 150%;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.td-card-name a {
+    color: var(--td-gray-900);
+    text-decoration: none;
+}
+
+.td-card-name a:hover {
+    color: var(--td-primary);
+}
+
+.td-card-titre {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #e67e22;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.td-card-location,
+.td-card-phone,
+.td-card-distance,
+.td-card-website {
+    margin: 6px 0;
+    font-size: 13px;
+    color: var(--td-gray-500);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.td-card-location svg,
+.td-card-phone svg,
+.td-card-website svg {
+    flex-shrink: 0;
+    color: var(--td-gray-300);
+}
+
+.td-card-website a {
+    color: var(--td-primary);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.td-card-website a:hover {
+    text-decoration: underline;
+}
+
+.td-card-visio {
+    color: var(--td-primary) !important;
+    font-weight: 500;
+}
+
+.td-card-visio svg {
+    color: var(--td-primary) !important;
+}
+
+/* --- Carte OpenStreetMap --- */
+.td-map-container {
+    border-radius: var(--td-radius);
+    overflow: hidden;
+    box-shadow: var(--td-shadow);
+    margin-top: 20px;
+}
+
+/* --- Pagination --- */
+.td-pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.td-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 0 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--td-gray-700);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.td-pagination .page-numbers:hover {
+    background: var(--td-gray-100);
+}
+
+.td-pagination .page-numbers.current {
+    background: var(--td-primary);
+    color: #fff;
+}
+
+/* --- No Results --- */
+.td-no-results {
+    text-align: center;
+    color: var(--td-gray-500);
+    font-size: 15px;
+    padding: 40px 0;
+}
+
+/* --- Popup Leaflet --- */
+.td-popup-name {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.td-popup-titre {
+    font-size: 12px;
+    color: var(--td-primary);
+    margin-bottom: 4px;
+}
+
+.td-popup-ville {
+    font-size: 12px;
+    color: var(--td-gray-500);
+}
+
+/* ==========================================================================
+   Single Thérapeute
+   ========================================================================== */
+
+.td-single-wrap {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- En-tête --- */
+.td-single-header {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 36px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--td-gray-200);
+}
+
+.td-single-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--td-gray-100);
+    box-shadow: var(--td-shadow);
+}
+
+.td-single-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.td-single-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--td-primary);
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.td-single-cats {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.td-single-cat {
+    display: inline-block;
+    padding: 3px 12px;
+    background: var(--td-gray-100);
+    color: var(--td-primary);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.td-single-name {
+    margin: 0 0 4px;
+    font-size: 32px;
+    font-weight: 600;
+    font-stretch: 150%;
+    letter-spacing: 0.5px;
+    color: var(--td-gray-900);
+    line-height: 1.2;
+}
+
+.td-single-titre {
+    margin: 0 0 6px;
+    font-size: 18px;
+    color: #e67e22;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.td-single-adeli {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: var(--td-gray-500);
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.td-single-visio-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    background: #eef7ee;
+    color: #27ae60;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.td-single-visio-badge svg {
+    color: #27ae60;
+}
+
+/* --- Corps : 2 colonnes --- */
+.td-single-body {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 36px;
+    align-items: start;
+}
+
+/* --- Sections --- */
+.td-single-section {
+    margin-bottom: 32px;
+}
+
+.td-single-section h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--td-gray-900);
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--td-gray-100);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.td-single-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--td-gray-700);
+}
+
+.td-single-text p {
+    margin: 0 0 12px;
+}
+
+/* --- Adresses --- */
+.td-single-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.td-single-address-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: var(--td-gray-100);
+    border-radius: var(--td-radius);
+}
+
+.td-single-address-item svg {
+    flex-shrink: 0;
+    color: var(--td-primary);
+    margin-top: 2px;
+}
+
+.td-single-address-street {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--td-gray-900);
+}
+
+.td-single-address-city {
+    font-size: 13px;
+    color: var(--td-gray-500);
+}
+
+.td-single-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    background: var(--td-primary);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+/* --- Carte --- */
+.td-single-map {
+    height: 350px;
+    border-radius: var(--td-radius);
+    overflow: hidden;
+    box-shadow: var(--td-shadow);
+}
+
+/* --- Sidebar contact --- */
+.td-single-contact-card {
+    background: #fff;
+    border: 1px solid var(--td-gray-200);
+    border-radius: var(--td-radius);
+    padding: 24px;
+    box-shadow: var(--td-shadow);
+    position: sticky;
+    top: 40px;
+}
+
+.td-single-contact-card h3 {
+    margin: 0 0 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--td-gray-900);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.td-single-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--td-gray-700);
+    text-decoration: none;
+    border-bottom: 1px solid var(--td-gray-100);
+    transition: color 0.2s ease;
+    word-break: break-all;
+}
+
+.td-single-contact-item:last-child {
+    border-bottom: none;
+}
+
+.td-single-contact-item:hover {
+    color: var(--td-primary);
+}
+
+.td-single-contact-item svg {
+    flex-shrink: 0;
+    color: var(--td-gray-300);
+}
+
+.td-single-contact-phone {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--td-primary);
+}
+
+.td-single-contact-phone svg {
+    color: var(--td-primary);
+}
+
+/* --- Retour --- */
+.td-single-back {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--td-gray-200);
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 768px) {
+    .td-single-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .td-single-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .td-single-name {
+        font-size: 26px;
+    }
+
+    .td-single-cats {
+        justify-content: center;
+    }
+
+    .td-single-body {
+        grid-template-columns: 1fr;
+    }
+
+    .td-single-contact-card {
+        position: static;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .td-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .td-filters-row,
+    .td-search-row {
+        flex-direction: column;
+    }
+
+    .td-filters-row input,
+    .td-search-field input,
+    .td-search-field select {
+        min-width: auto;
+        width: 100%;
+    }
+}

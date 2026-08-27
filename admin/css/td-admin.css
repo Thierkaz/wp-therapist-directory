@@ -1,0 +1,611 @@
+/* ==========================================================================
+   Annuaire de Thérapeutes — Admin Styles
+   Design moderne, épuré et sobre
+   ========================================================================== */
+
+/* --- Variables --- */
+:root {
+    --td-primary: #4f6df5;
+    --td-primary-light: #eef1fe;
+    --td-primary-dark: #3a54c4;
+    --td-gray-50: #fafbfc;
+    --td-gray-100: #f1f3f5;
+    --td-gray-200: #e2e6ea;
+    --td-gray-300: #ced4da;
+    --td-gray-500: #868e96;
+    --td-gray-700: #495057;
+    --td-gray-900: #212529;
+    --td-danger: #e74c3c;
+    --td-success: #27ae60;
+    --td-radius: 8px;
+    --td-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --td-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --td-transition: all 0.2s ease;
+}
+
+/* --- Meta Box Container --- */
+.td-meta-box {
+    margin: -6px -12px -12px;
+}
+
+/* --- Onglets Navigation --- */
+.td-tabs-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--td-gray-200);
+    background: var(--td-gray-50);
+    padding: 0 16px;
+}
+
+.td-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    color: var(--td-gray-500);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--td-transition);
+    white-space: nowrap;
+}
+
+.td-tab-btn:hover {
+    color: var(--td-gray-700);
+    background: var(--td-gray-100);
+}
+
+.td-tab-btn.active {
+    color: var(--td-primary);
+    border-bottom-color: var(--td-primary);
+    background: none;
+}
+
+.td-tab-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+}
+
+/* --- Contenu des onglets --- */
+.td-tab-content {
+    display: none;
+    padding: 24px;
+}
+
+.td-tab-content.active {
+    display: block;
+}
+
+/* --- Grille de champs --- */
+.td-fields-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.td-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.td-field-full {
+    flex: 0 0 100%;
+}
+
+.td-field-half {
+    flex: 0 0 calc(50% - 10px);
+}
+
+.td-field-quarter {
+    flex: 0 0 calc(25% - 15px);
+}
+
+/* --- Labels --- */
+.td-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--td-gray-700);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.td-required {
+    color: var(--td-danger);
+    margin-left: 2px;
+}
+
+/* --- Inputs --- */
+.td-field input[type="text"],
+.td-field input[type="email"],
+.td-field input[type="tel"],
+.td-field input[type="url"],
+.td-field input[type="number"],
+.td-field select,
+.td-field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--td-gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--td-gray-900);
+    background: #fff;
+    transition: var(--td-transition);
+    box-sizing: border-box;
+}
+
+.td-field input:focus,
+.td-field select:focus,
+.td-field textarea:focus {
+    outline: none;
+    border-color: var(--td-primary);
+    box-shadow: 0 0 0 3px var(--td-primary-light);
+}
+
+.td-field input::placeholder,
+.td-field textarea::placeholder {
+    color: var(--td-gray-300);
+}
+
+.td-field input[readonly] {
+    background: var(--td-gray-100);
+    color: var(--td-gray-500);
+}
+
+.td-field textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+.td-field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23868e96' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+/* --- Photo Upload --- */
+.td-photo-upload {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.td-photo-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--td-radius);
+    border: 2px dashed var(--td-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--td-gray-50);
+    flex-shrink: 0;
+}
+
+.td-photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.td-photo-preview .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--td-gray-300);
+}
+
+.td-upload-btn,
+.td-remove-btn {
+    font-size: 13px !important;
+    border-radius: 6px !important;
+    padding: 6px 14px !important;
+    height: auto !important;
+}
+
+.td-remove-btn {
+    color: var(--td-danger) !important;
+    border-color: var(--td-danger) !important;
+}
+
+/* --- Cards Adresse --- */
+.td-address-card {
+    background: #fff;
+    border: 1px solid var(--td-gray-200);
+    border-radius: var(--td-radius);
+    margin-bottom: 16px;
+    box-shadow: var(--td-shadow);
+    transition: var(--td-transition);
+}
+
+.td-address-card:hover {
+    box-shadow: var(--td-shadow-md);
+}
+
+.td-address-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--td-gray-100);
+    background: var(--td-gray-50);
+    border-radius: var(--td-radius) var(--td-radius) 0 0;
+}
+
+.td-address-card-header h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--td-gray-900);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.td-address-card-header h4 .dashicons {
+    color: var(--td-primary);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.td-address-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.td-primary-label {
+    font-size: 12px;
+    color: var(--td-gray-500);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.td-primary-label input[type="radio"] {
+    accent-color: var(--td-primary);
+}
+
+.td-btn-icon {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--td-gray-500);
+    transition: var(--td-transition);
+}
+
+.td-btn-icon:hover {
+    background: var(--td-gray-100);
+    color: var(--td-gray-700);
+}
+
+.td-remove-address:hover {
+    background: #fdf0ef;
+    color: var(--td-danger);
+}
+
+.td-address-card-body {
+    padding: 18px;
+}
+
+/* --- Géocodage --- */
+.td-geo-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.td-geocode-btn {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    padding: 6px 14px !important;
+    height: auto !important;
+    margin-top: 20px;
+}
+
+.td-geocode-btn .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.td-geocode-status {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.td-status-success {
+    color: var(--td-success);
+}
+
+.td-status-error {
+    color: var(--td-danger);
+}
+
+/* --- Bouton Ajouter une adresse --- */
+#td-add-address {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    padding: 8px 18px !important;
+    height: auto !important;
+    background: var(--td-primary) !important;
+    border-color: var(--td-primary-dark) !important;
+}
+
+#td-add-address:hover {
+    background: var(--td-primary-dark) !important;
+}
+
+#td-add-address .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Geo Field Style --- */
+.td-geo-field {
+    font-family: 'Consolas', 'Monaco', monospace !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px;
+}
+
+/* --- Checkbox label --- */
+.td-checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    color: var(--td-gray-900) !important;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.td-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--td-primary);
+    cursor: pointer;
+}
+
+/* --- WYSIWYG dans meta box --- */
+.td-wysiwyg-field .wp-editor-wrap {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.td-wysiwyg-field .wp-editor-container {
+    border-color: var(--td-gray-300);
+}
+
+.td-wysiwyg-field .mce-toolbar-grp {
+    background: var(--td-gray-50);
+    border-bottom-color: var(--td-gray-200);
+}
+
+.td-wysiwyg-field .quicktags-toolbar {
+    background: var(--td-gray-50);
+    border-bottom-color: var(--td-gray-200);
+}
+
+/* --- Masquer le champ titre WordPress standard --- */
+.post-type-therapeute #titlediv {
+    display: none;
+}
+
+/* --- Page Ordre d'affichage --- */
+.td-ordering-filters {
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.td-ordering-filters label {
+    font-weight: 600;
+    color: var(--td-gray-700);
+}
+
+.td-ordering-filters select {
+    padding: 6px 12px;
+    border: 1px solid var(--td-gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.td-ordering-status {
+    padding: 10px 16px;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 6px;
+    color: #065f46;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.td-ordering-status .dashicons {
+    color: var(--td-success);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.td-ordering-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 800px;
+}
+
+.td-ordering-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--td-gray-200);
+    border-radius: var(--td-radius);
+    margin-bottom: 6px;
+    cursor: grab;
+    transition: var(--td-transition);
+    user-select: none;
+}
+
+.td-ordering-item:hover {
+    box-shadow: var(--td-shadow-md);
+    border-color: var(--td-primary);
+}
+
+.td-ordering-item.ui-sortable-helper {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--td-primary);
+    cursor: grabbing;
+}
+
+.td-ordering-item.ui-sortable-placeholder {
+    visibility: visible !important;
+    background: var(--td-primary-light);
+    border: 2px dashed var(--td-primary);
+    border-radius: var(--td-radius);
+}
+
+.td-ordering-handle {
+    color: var(--td-gray-300);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.td-ordering-handle .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.td-ordering-item:hover .td-ordering-handle {
+    color: var(--td-primary);
+}
+
+.td-ordering-position {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--td-gray-100);
+    color: var(--td-gray-700);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.td-ordering-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--td-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.td-ordering-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.td-ordering-initials {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--td-primary);
+    text-transform: uppercase;
+}
+
+.td-ordering-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.td-ordering-info strong {
+    display: block;
+    font-size: 14px;
+    color: var(--td-gray-900);
+}
+
+.td-ordering-titre {
+    display: block;
+    font-size: 12px;
+    color: var(--td-gray-500);
+    margin-top: 2px;
+}
+
+.td-ordering-cats {
+    font-size: 11px;
+    color: var(--td-primary);
+    background: var(--td-primary-light);
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 782px) {
+    .td-tabs-nav {
+        overflow-x: auto;
+        padding: 0 8px;
+    }
+
+    .td-tab-btn {
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+
+    .td-field-half,
+    .td-field-quarter {
+        flex: 0 0 100%;
+    }
+
+    .td-tab-content {
+        padding: 16px;
+    }
+
+    .td-photo-upload {
+        flex-wrap: wrap;
+    }
+}
